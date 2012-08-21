@@ -3,13 +3,13 @@
     <li ng-repeat="value in values">
       <button ng-click="saveShot()">{{ value }}
   </ul>
-  <ul>
+  <ul class="stage">
     <li ng-repeat="shot in shoot.shots" ng-click="shot.ignoreToggle()"
-      class="{{ shot.ignore }}"> {{ shot.value }}
+      class="ignore-{{ shot.ignore }}"> {{ shot.value }}
   </ul>
   <span>{{ shoot.getScore() }}</span>
   <span>{{ shoot.getBulls().length }}</span>
-  <span>{{ shoot.shots.length }}</span>
+  <span>{{ shoot.getShots().length }}</span>
   <ul>
     <li ng-repeat="shoot in shoots">
       {{ shoot.shooter }}

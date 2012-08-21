@@ -21,23 +21,30 @@ angular.module('backend', ['ngResource'])
       var score = 0;
       for(i in this.shots) {
         var shot = this.shots[i];
-        score += (shot.value == 'X' ? 10 : shot.value);
+        if(shot.ignore == '') {
+          score += (shot.value == 'X' ? 10 : shot.value);
+        }
       }
       return score;
     }
     Shoot.prototype.getBulls = function () {
-      return $filter('filter')(this.shots, { value: 'X' });
+      // @todo fix filter to include ignore
+      return $filter('filter')(this.shots, { value: 'X', ignore : false });
+    }
+    Shoot.prototype.getShots = function () {
+      // @todo fix filter to include ignore
+      return $filter('filter')(this.shots, { ignore : false });
     }
     return Shoot;
   });
 
 var Shot = function (value) {
   this.value = value;
-  this.ignore = '';
+  this.ignore = false;
 }
-  
+
 Shot.prototype.ignoreToggle = function () {
-  this.ignore = this.ignore == '' ? 'ignored' : '';
+  this.ignore = this.ignore == false ? true : false;
 }
 
 var ShooterCtrl = function ($scope, Shoot) {
