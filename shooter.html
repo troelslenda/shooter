@@ -1,5 +1,5 @@
 <div>
-  <ul>
+  <ul class="buttons">
     <li ng-repeat="value in values">
       <button ng-click="saveShot()">{{ value }}
   </ul>
@@ -15,8 +15,12 @@
       {{ shoot.shooter }}
       {{ shoot.discipline }}
       {{ shoot.timestamp | date:'short' }}
-      <p ng-repeat="shot in shoot.shots">{{ shot.value }}</p>
       {{ shoot.getScore() }}
+  </ul>
+  Choose shooter:
+  <ul>
+    <li ng-repeat="shooter in shooters">
+      {{shooter.name}}
   </ul>
   <input ng-model="shooter">
   <select ng-model="discipline">

@@ -1,3 +1,72 @@
+/* reset */
+
+body,ul,li{
+  margin:0;
+  padding:0;
+}
+li{
+  list-style:none;
+}
+
+
+body{
+  margin:2em;
+  width:320px;
+  height:480px;
+  outline: 1px solid red;
+}
+
 .ignore-true {
   color: red;
+}
+
+.stage {
+  height:3em;
+  overflow: hidden;
+}
+.stage li{
+  float:left;
+  padding:0.5em;
+}
+.buttons{
+  position:relative;
+  height: 80px;
+}
+.buttons li button{
+  position: absolute;
+  display: block;
+  width:25%;
+  height:40px;
+}
+.buttons li:nth-child(1) button{
+  top:0;
+  left:0;
+}
+.buttons li:nth-child(2) button{
+  top:0;
+  left:25%;
+}
+.buttons li:nth-child(3) button{
+  top:0;
+  left:50%;
+}
+.buttons li:nth-child(4) button{
+  top:0;
+  left:75%;
+}
+.buttons li:nth-child(5) button{
+  top:40px;
+  left:0;
+}
+.buttons li:nth-child(6) button{
+  top:40px;
+  left:25%;
+}
+.buttons li:nth-child(7) button{
+  top:40px;
+  left:50%;
+}
+.buttons li:nth-child(8) button{
+  top:40px;
+  left:75%;
 }

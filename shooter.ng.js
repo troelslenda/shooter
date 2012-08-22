@@ -12,8 +12,6 @@ angular.module('backend', ['ngResource'])
     var Shoot = $resource('https://api.mongolab.com/api/1/databases' +
       '/shooter/collections/shoots/:id', {
         apiKey: '5031fdb7e4b01966199d1ba2',
-      }, {
-        update: { method: 'PUT' }
       }
     );
     Shoot.prototype.shots = [];
@@ -21,21 +19,26 @@ angular.module('backend', ['ngResource'])
       var score = 0;
       for(i in this.shots) {
         var shot = this.shots[i];
-        if(shot.ignore == '') {
+        if(shot.ignore == false) {
           score += (shot.value == 'X' ? 10 : shot.value);
         }
       }
       return score;
     }
     Shoot.prototype.getBulls = function () {
-      // @todo fix filter to include ignore
       return $filter('filter')(this.shots, { value: 'X', ignore : false });
     }
     Shoot.prototype.getShots = function () {
-      // @todo fix filter to include ignore
       return $filter('filter')(this.shots, { ignore : false });
     }
     return Shoot;
+  })
+  .factory('Shooter',function ($resource,$filter) {
+    var Shooter = $resource('https://api.mongolab.com/api/1/databases' +
+      '/shooter/collections/shooters/:id', {
+        apiKey: '5031fdb7e4b01966199d1ba2',
+    });
+    return Shooter;
   });
 
 var Shot = function (value) {
@@ -47,15 +50,22 @@ Shot.prototype.ignoreToggle = function () {
   this.ignore = this.ignore == false ? true : false;
 }
 
-var ShooterCtrl = function ($scope, Shoot) {
+var ShooterCtrl = function ($scope, Shoot,Shooter) {
   $scope.shoots = Shoot.query();
+
+  $scope.shooters = Shooter.query();
   $scope.values = [0, 5, 6, 7, 8, 9, 10, 'X'];
 
   $scope.shoot = new Shoot();
   $scope.shoot.shots = [];
 
   $scope.saveShoot = function () {
-    $scope.shoot.shooter = $scope.shooter;
+    if($scope.shooter){
+      console.log('shootername set');
+      var shooter = new Shooter();
+      shooter.name = $scope.shooter;
+      shooter.$save();
+    }
     $scope.shoot.discipline = $scope.discipline;
     $scope.shoot.timestamp = new Date();
     $scope.shoot.$save(function () {
@@ -66,6 +76,7 @@ var ShooterCtrl = function ($scope, Shoot) {
   }
 
   $scope.saveShot = function () {
+
     $scope.shoot.shots.push(new Shot(this.value));
   }
 }
