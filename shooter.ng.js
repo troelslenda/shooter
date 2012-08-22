@@ -8,14 +8,14 @@ angular.module('shooter', ['backend'])
   });
 
 angular.module('backend', ['ngResource'])
-  .factory('Shoot', function ($resource, $filter) {
-    var Shoot = $resource('https://api.mongolab.com/api/1/databases' +
+  .factory('Stage', function ($resource, $filter) {
+    var Stage = $resource('https://api.mongolab.com/api/1/databases' +
       '/shooter/collections/shoots/:id', {
         apiKey: '5031fdb7e4b01966199d1ba2',
       }
     );
-    Shoot.prototype.shots = [];
-    Shoot.prototype.getScore = function () {
+    Stage.prototype.shots = [];
+    Stage.prototype.getScore = function () {
       var score = 0;
       for(i in this.shots) {
         var shot = this.shots[i];
@@ -25,20 +25,20 @@ angular.module('backend', ['ngResource'])
       }
       return score;
     }
-    Shoot.prototype.getBulls = function () {
+    Stage.prototype.getBulls = function () {
       return $filter('filter')(this.shots, { value: 'X', ignore : false });
     }
-    Shoot.prototype.getShots = function () {
+    Stage.prototype.getShots = function () {
       return $filter('filter')(this.shots, { ignore : false });
     }
-    return Shoot;
+    return Stage;
   })
-  .factory('Shooter',function ($resource,$filter) {
-    var Shooter = $resource('https://api.mongolab.com/api/1/databases' +
+  .factory('Player',function ($resource,$filter) {
+    var Player = $resource('https://api.mongolab.com/api/1/databases' +
       '/shooter/collections/shooters/:id', {
         apiKey: '5031fdb7e4b01966199d1ba2',
     });
-    return Shooter;
+    return Player;
   });
 
 var Shot = function (value) {
@@ -50,33 +50,33 @@ Shot.prototype.ignoreToggle = function () {
   this.ignore = this.ignore == false ? true : false;
 }
 
-var ShooterCtrl = function ($scope, Shoot,Shooter) {
-  $scope.shoots = Shoot.query();
+var ShooterCtrl = function ($scope, Stage, Player) {
+  $scope.stages = Stage.query();
 
-  $scope.shooters = Shooter.query();
+  $scope.players = Player.query();
   $scope.values = [0, 5, 6, 7, 8, 9, 10, 'X'];
 
-  $scope.shoot = new Shoot();
-  $scope.shoot.shots = [];
+  $scope.stage = new Stage();
+  $scope.stage.shots = [];
 
-  $scope.saveShoot = function () {
-    if($scope.shooter){
+  $scope.saveStage = function () {
+    if($scope.player){
       console.log('shootername set');
-      var shooter = new Shooter();
-      shooter.name = $scope.shooter;
-      shooter.$save();
+      var player = new Player();
+      player.name = $scope.player;
+      player.$save();
     }
-    $scope.shoot.discipline = $scope.discipline;
-    $scope.shoot.timestamp = new Date();
-    $scope.shoot.$save(function () {
-      $scope.shoot = new Shoot();
-      $scope.shoot.shots = [];
-      $scope.shoots = Shoot.query();
+    $scope.stage.discipline = $scope.discipline;
+    $scope.stage.timestamp = new Date();
+    $scope.stage.$save(function () {
+      $scope.stage = new Stage();
+      $scope.stage.shots = [];
+      $scope.stage = Stage.query();
     });
   }
 
   $scope.saveShot = function () {
 
-    $scope.shoot.shots.push(new Shot(this.value));
+    $scope.stage.shots.push(new Shot(this.value));
   }
 }

@@ -15,3 +15,10 @@ You need to engage 10 25m pistol duel targets from a distance of 12.5 meters in 
 A TJ pistol match consists of 3 duel and 3 tempo stages, shooting 60 rounds scoring a maximum of 600 points.
 
 Normally duel and tempo stages are scored shot and scored as one, scoring 30 shots at a time.
+
+### Defintions ###
+
+Shot = one shot
+Stage = a series of shots
+(Match = a collection of stages)
+Player = The shooter
