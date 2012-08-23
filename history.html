@@ -1,0 +1,10 @@
+<div>
+List of previous shots by shooter:
+</div>
+ <ul>
+    <li ng-repeat="stage in stages">
+      {{ stage.shooter }}
+      {{ stage.discipline }}
+      {{ stage.timestamp | date:'short' }}
+      {{ stage.getScore() }}
+  </ul>

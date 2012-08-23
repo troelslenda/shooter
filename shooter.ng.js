@@ -5,6 +5,10 @@ angular.module('shooter', ['backend'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', { controller: ShooterCtrl, templateUrl: 'shooter.html' })
+  })
+  .config(function ($routeProvider) {
+    $routeProvider
+      .when('/history', { controller: ShooterCtrl, templateUrl: 'history.html' })
   });
 
 angular.module('backend', ['ngResource'])
