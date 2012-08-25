@@ -1,24 +1,19 @@
 <div>
-  <ul class="buttons">
-    <li ng-repeat="value in values">
-      <button ng-click="saveShot()">{{ value }}
-  </ul>
-  <ul class="stage">
-    <li ng-repeat="shot in stage.shots" ng-click="shot.ignoreToggle()"
-      class="ignore-{{ shot.ignore }}"> {{ shot.value }}
-  </ul>
+  <h2>The score is</h2>
   <span>{{ stage.getScore() }}</span>
   <span>{{ stage.getBulls().length }}</span>
   <span>{{ stage.getShots().length }}</span>
+  <h3>Choose displine:</h3>
+  <select ng-model="discipline">
+    <option>Duel
+    <option>Tempo
+  </select>
 
-  Choose shooter:
+
+  <h3>Choose shooter:</h3>
   <ul>
     <li ng-repeat="player in players">
       {{player.name}}
   </ul>
   <input ng-model="player">
-  <select ng-model="discipline">
-    <option>Duel
-    <option>Tempo
-  </select>
-  <button ng-click="saveStage()"> Save Stage
+    <button ng-click="saveStage()"> Save Stage

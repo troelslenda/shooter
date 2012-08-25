@@ -1,14 +1,14 @@
+var currentStage = {};
+
 angular.module('shooter', ['backend'])
   .config(function () {
     console.log('onload');
   })
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/', { controller: ShooterCtrl, templateUrl: 'shooter.html' })
-  })
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/history', { controller: ShooterCtrl, templateUrl: 'history.html' })
+      .when('/', { controller: ScoringCtrl, templateUrl: 'scoring.html' })
+      .when('/history', { controller: HistoryCtrl, templateUrl: 'history.html' })
+      .when('/shooter', { controller: ShooterCtrl, templateUrl: 'shooter.html' })
   });
 
 angular.module('backend', ['ngResource'])
@@ -48,20 +48,39 @@ angular.module('backend', ['ngResource'])
 var Shot = function (value) {
   this.value = value;
   this.ignore = false;
+  this.number = '';
 }
 
 Shot.prototype.ignoreToggle = function () {
   this.ignore = this.ignore == false ? true : false;
 }
 
-var ShooterCtrl = function ($scope, Stage, Player) {
+var HistoryCtrl = function ($scope, Stage, Player) {
   $scope.stages = Stage.query();
+}
+var ScoringCtrl = function ($scope, Stage, Player) {
 
-  $scope.players = Player.query();
+console.log($scope);
   $scope.values = [0, 5, 6, 7, 8, 9, 10, 'X'];
 
   $scope.stage = new Stage();
   $scope.stage.shots = [];
+  $scope.saveShot = function () {
+    $scope.stage.shots.push(new Shot(this.value));
+    currentStage = $scope.stage;
+  }
+
+
+}
+
+var ShooterCtrl = function ($scope, Stage, Player) {
+
+  $scope.stage = currentStage;
+  $scope.players = Player.query();
+
+
+  //$scope.stage = new Stage();
+  //$scope.stage.shots = [];
 
   $scope.saveStage = function () {
     if($scope.player){
@@ -79,8 +98,4 @@ var ShooterCtrl = function ($scope, Stage, Player) {
     });
   }
 
-  $scope.saveShot = function () {
-
-    $scope.stage.shots.push(new Shot(this.value));
-  }
 }
