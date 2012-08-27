@@ -14,8 +14,8 @@ angular.module('shooter', ['backend'])
 angular.module('backend', ['ngResource'])
   .factory('Stage', function ($resource, $filter) {
     var Stage = $resource('https://api.mongolab.com/api/1/databases' +
-      '/shooter/collections/shoots/:id', {
-        apiKey: '5031fdb7e4b01966199d1ba2',
+      '/shooter2/collections/stages/:id', {
+        apiKey: '50392416e4b05405e515d962',
       }
     );
     Stage.prototype.shots = [];
@@ -39,8 +39,8 @@ angular.module('backend', ['ngResource'])
   })
   .factory('Player',function ($resource,$filter) {
     var Player = $resource('https://api.mongolab.com/api/1/databases' +
-      '/shooter/collections/shooters/:id', {
-        apiKey: '5031fdb7e4b01966199d1ba2',
+      '/shooter2/collections/players/:id', {
+        apiKey: '50392416e4b05405e515d962',
     });
     return Player;
   });
