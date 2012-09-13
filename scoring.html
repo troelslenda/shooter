@@ -11,7 +11,8 @@
   <span>{{ stage.getScore() }}</span>
   <span>{{ stage.getBulls().length }}</span>
   <span>{{ stage.getShots().length }}</span>
-
-  <a href="#/shooter">Choose shooter</a>
+  <div>Shooter :{{stage.player}}</div>
+  <div>Disipline :{{stage.disipline}}</div>
+  <button class="wide" ng-click="saveStage()">Save Stage</button>
 
 </div>

@@ -1,22 +1,11 @@
 <div>
-  <h2>The score is</h2>
-  <span>{{ stage.getScore() }}</span>
-  <span>{{ stage.getBulls().length }}</span>
-  <span>{{ stage.getShots().length }}</span>
-  <h3>Choose displine:</h3>
-  <select ng-model="discipline">
-    <option>Duel
-    <option>Tempo
-  </select>
+  <h1>Choose shooter</h1>
+  <button class="wide" ng-repeat="player in players" ng-click="selectPlayer()">
+    {{player.name}}
+  </button>
+  <input ng-model="playern">
 
-
-  <h3>Choose shooter:</h3>
-  <div style="border:1px solid blue"></div>
-  <ul>
-    <li ng-repeat="player in players" ng-click="player.choose()">
-      {{player.name}}
-  </ul>
-  <input ng-model="player">
-  <button ng-click="saveStage()"> Save Stage
+  <div>PLAYER:{{scope.playern}}</div>
+  <button class="wide" ng-click="chooseShooter()">Choose</button>
 
 </div>

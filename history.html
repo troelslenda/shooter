@@ -1,6 +1,6 @@
-<div>
-List of previous shots by shooter:
-</div>
+<h1>
+History
+</h1>
  <ul>
     <li ng-repeat="stage in stages">
       {{ stage.shooter }}
@@ -8,3 +8,4 @@ List of previous shots by shooter:
       {{ stage.timestamp | date:'short' }}
       {{ stage.getScore() }}
   </ul>
+  <button class="wide" ng-click="goBack()">Back</button>

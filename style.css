@@ -1,5 +1,11 @@
 /* reset */
 
+.wide{
+  display: block;
+  width:100%;
+  padding:10px;
+}
+
 body,ul,li{
   margin:0;
   padding:0;
