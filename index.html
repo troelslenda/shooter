@@ -1,16 +1,160 @@
-<html>
-<head>
-  <title>Shooter</title>
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  <meta name="viewport" content = "width = device-width, initial-scale = 1, user-scalable = no" />
+<!DOCTYPE html>
+<html lang="en">
 
-  <script type="text/javascript" src="script.js"></script>
-  <style>
-   @import url(style.css);
-  </style>
+<head>
+  <meta charset="utf-8">
+  <title>ShooterApp</title>
 </head>
+
 <body>
+
+<h1>ShooterApp</h1>
+<hr />
+<div class="page"></div>
+
+
+
+
+
+<!--
+<div id="startScreen">
+  <h1>ShooterApp v2</h1>
+  <button>Register shots</button>
+  <button>See history</button>
+  <button>Settings</button>
+
+</div>
+
+<div id="shooterApp">
+<h3>Choose Shooter:</h3>
+  <ul>
+    <li>Peter<br><small>Last registration was 10 mins ago.</small><button>Start new</button><button>Add to existing</button></li>
+    <li>Carsten<br><small>Last registration was 10 mins ago.</small><button>Start new</button><button>Add to existing</button></li>
+    <li>Jakob<br><small>Last registration was 10 mins ago.</small><button>Start new</button><button>Add to existing</button></li>
+    <li>Troels<br><small>Last registration was 10 mins ago.</small><button>Start new</button><button>Add to existing</button></li>
+    <li><input type="text" name="new-player" /></li>
+  </ul>
+
+</div>
+
+<div id="chooseType">
+  <h3>Choose Type:</h3>
+  <ul>
+    <li>TJ Pistol - Duel</li>
+    <li>TJ Pistol - Tempo</li>
+    <li>15m pistol</li>
+    <li>15m gevær</li>
+    <li>Tilføj ny type<input type="text" name="new-player" /></li>
+  </ul>
+  <label>Note</label>
+  <textarea></textarea>
+  <button>Næste</button>
+</div>
+-->
+
+<div id="chooseType">
+  <h3>Register shots:</h3>
+  <button>0</button>
+  <button>3</button>
+  <button>4</button>
+  <button>5</button>
+  <button>6</button>
+  <button>7</button>
+  <button>8</button>
+  <button>9</button>
+  <button>10</button>
+  <button>x</button>
+
+  <button>Save</button>
+</div>
+
+
+
+<script src="libraries/jquery.js"></script>
+<script src="libraries/underscore.js"></script>
+<script src="libraries/backbone.js"></script>
+<script src="https://raw.github.com/PaulUithol/Backbone-relational/master/backbone-relational.js"></script>
+<script src="script.js"></script>
+
+
+<!-- Templates -->
+
+<script type="text/template" id="startscreen-template">
+  <a href="#/new">Register skud</a></br>
+  <a href="#/history">Se historik</a></br>
+  <a href="#/settings">Indstillinger</a></br>
+</script>
+
+<script type="text/template" id="edit-user-template">
+  <h3><%= player ? 'Rediger' : 'Opret' %> skytte</h3>
+  <form class="edit-user-form">
+    <label>Skytte fornavn</label>
+    <input type="text" name="firstname" value="<%= player ? player.get('firstname') : '' %>"><br>
+    <label>Skytte efternavn</label>
+    <input type="text" name="familyname" value="<%= player ? player.get('familyname') : '' %>"><br>
+    <label>Skytte nummer</label>
+    <input type="text" name="number" value="<%= player ? player.get('number') : '' %>"><br>
+    <% if (player) { %>
+      <input type="hidden" name="id" value="<%=player.get('_id').$oid %>" />
+
+    <% } %>
+    <button type="submit"><%= player ? 'Rediger' : 'Opret' %></button>
+  </form>
+</script>
+
+<script type="text/template" id="edit-serie-type-template">
+  <h3>Opret ny serie</h3>
+  <form class="edit-serie-form">
+    <label>Titel</label>
+    <input type="text" name="title"><br>
+    <button type="submit">Opret</button>
+  </form>
+</script>
+
+
+<script type="text/template" id="show-player-list">
+  <h3>Choose Shooter:</h3>
+  <ul>
+    <% _.each(players, function(player){ %>
+      <li>
+        <div style="float:right;"><%if(player.get('last_serie_date')){%><a href="#/new_score/<%=player.get('last_serie_id')%>">Append</a> - <%}%><a href="#/start_new_serie/<%=player.get('_id').$oid %>">New</a> - <a href="#/edit/<%=player.get('_id').$oid%>">Edit</a></div>
+        <span><%=player.get('number')%></span> <%=player.get('firstname')%>
+        <br><small><%=player.get('last_serie_date')%></small>
+       </li>
+    <% }) %>
+
+  </ul>
+  <a href="#/new_player">Opret skytte</a>
+</script>
+
+
+<script type="text/template" id="create-serie-list">
+  <h3>Create new serie:</h3>
+  <form class="new-serie-form">
+    <textarea name="beskrivelse"></textarea>
+    <input type="hidden" name="date" value="<%=date%>">
+    <input type="hidden" name="player_id" value="<%=player%>">
+    <button type="submit">Create serie</button>
+  </form>
+
+</script>
+
+
+<script type="text/template" id="roundtype-list">
+  <h3>Choose Type:</h3>
+  <ul>
+    <% _.each(roundtypes, function(type){ %>
+    <li>
+      <a href="#/start_new_serie/<%=serieid%>/<%=type.get('_id').$oid%>"><%=type.get('title')%></a>
+    </li>
+    <% }) %>
+  </ul>
+
+  <a href="#/new_serie_type">Tilføj ny type</a>
+
+</script>
+
+
 
 
 </body>
