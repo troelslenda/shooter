@@ -65,7 +65,8 @@
 </script>
 
 <script type="text/template" id="edit-user-template">
-  <h3><%= player ? 'Rediger' : 'Opret' %> skytte</h3>
+  <h1><%= player ? 'Rediger' : 'Opret' %> skytte</h1>
+  <hr>
   <form class="edit-user-form">
     <label>Skytte fornavn</label>
     <input type="text" name="firstname" value="<%= player ? player.get('firstname') : '' %>"><br>
@@ -77,7 +78,8 @@
       <input type="hidden" name="id" value="<%=player.get('_id').$oid %>" />
 
     <% } %>
-    <button type="submit"><%= player ? 'Rediger' : 'Opret' %></button>
+    <hr>
+    <button type="submit" class="btn"><%= player ? 'Rediger' : 'Opret' %></button>
   </form>
 </script>
 
@@ -92,18 +94,32 @@
 
 
 <script type="text/template" id="show-player-list">
-  <h3>Choose Shooter:</h3>
-  <ul>
+  <h1>Choose Shooter:</h1>
+  <hr>
+  <table class="table table-striped">
     <% _.each(players, function(player){ %>
-      <li>
-        <div style="float:right;"><%if(player.get('last_serie_date')){%><a href="#/new_score/<%=player.get('last_serie_id')%>">Append</a> - <%}%><a href="#/start_new_serie/<%=player.get('_id').$oid %>">New</a> - <a href="#/edit/<%=player.get('_id').$oid%>">Edit</a></div>
-        <span><%=player.get('number')%></span> <%=player.get('firstname')%>
-        <br><small><%=player.get('last_serie_date')%></small>
-       </li>
+      <tr>
+        <td>
+          <div><strong><%=player.get('number')%></strong> <%=player.get('firstname')%>
+            <%if(player.get('last_serie_date')){%><small class="muted"><em>(<span class="hidden-phone">Sidste registrering er</span> <%=player.get('last_serie_date')%>)</em></small><%}%></div>
+
+        </td>
+        <td>
+          <div class="text-right" >
+          <%if(player.get('last_serie_date')){%>
+            <a class="btn btn-mini btn-success" href="#/new_score/<%=player.get('last_serie_id')%>">Append</a>
+            <%}%>
+            <a  class="btn btn-mini" href="#/start_new_serie/<%=player.get('_id').$oid %>">New</a>
+            <a  class="btn btn-mini btn-warning" href="#/edit/<%=player.get('_id').$oid%>">Edit</a>
+          </div>
+        </td>
+
+      </tr>
     <% }) %>
 
-  </ul>
-  <a href="#/new_player">Opret skytte</a>
+  </table>
+  <hr>
+  <a href="#/new_player" class="btn">Opret skytte</a>
 </script>
 
 
@@ -120,19 +136,66 @@
 
 
 <script type="text/template" id="roundtype-list">
-  <h3>Choose Type:</h3>
+  <h1>Vælg serie type:</h1>
+  <hr>
   <ul>
     <% _.each(roundtypes, function(type){ %>
     <li>
-      <a href="#/start_new_serie/<%=serieid%>/<%=type.get('_id').$oid%>"><%=type.get('title')%></a>
+      <a href="#/scoring/<%=serieid%>/<%=type.get('_id').$oid%>"><%=type.get('title')%></a>
     </li>
     <% }) %>
   </ul>
 
-  <a href="#/new_serie_type">Tilføj ny type</a>
+  <hr>
+  <a href="#/new_serie_type" class="btn">Tilføj ny type</a>
 
 </script>
 
+<script type="text/template" id="register-round-list">
+  <h1>Scoring</h1>
+  <hr>
+  <p class="alert alert-info"><button type="button" class="close" data-dismiss="alert">×</button>Du er ved at registrere en () serie for playername</p>
+
+
+  <div class="alert alert-success">Score: <span class="totalscore"></span>/<span class="bulls"></span> af <span class="numberofshots"></span></div>
+
+  <button class="add-score btn btn-large" data-val="0">0</button>
+  <button class="add-score btn btn-large" data-val="3">3</button>
+  <button class="add-score btn btn-large" data-val="4">4</button>
+  <button class="add-score btn btn-large" data-val="5">5</button>
+  <button class="add-score btn btn-large" data-val="6">6</button>
+  <button class="add-score btn btn-large" data-val="7">7</button>
+  <button class="add-score btn btn-large" data-val="8">8</button>
+  <button class="add-score btn btn-large" data-val="9">9</button>
+  <button class="add-score btn btn-large" data-val="10">10</button>
+  <button class="add-score btn btn-large" data-val="x">x</button>
+
+
+  <hr>
+  <a href="submit" class="submit-score btn">Indsend</a> <a href="reset" class="reset-score btn">Nulstil</a>
+
+</script>
+
+
+<script type="text/template" id="show-results-overview">
+  <h1>Seneste resultater</h1>
+  <hr>
+  <table class="table table-striped">
+    <% _.each(series, function(serie){ %>
+    <tr>
+      <td>
+        <%=serie.get('beskrivelse')%>
+      </td>
+      <td>
+
+      </td>
+
+    </tr>
+    <% }) %>
+
+  </table>
+
+</script>
 
 
 

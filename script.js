@@ -49,8 +49,10 @@ $(function(){
                   _.find(series.attributes,function(serie){
                     //console.log(serie);
                     if(playerid == serie.player_id){
+                      var date = new Date(serie.date);
+                      var prettydate = prettyDate(date.toISOString());
                       player.set({
-                        last_serie_date: serie.date,
+                        last_serie_date: prettydate ,
                         last_serie_id: serie._id.$oid
                       });
                     }
@@ -145,6 +147,10 @@ $(function(){
 
 
 
+
+
+
+
   /**
    * @property rounds. A collection of rounds
    * @property timestamp. When was the serie initiated.
@@ -177,7 +183,6 @@ $(function(){
   var editRoundType = Backbone.View.extend({
     el: '.page',
     render: function(){
-      console.log('hest');
       var template = _.template($('#edit-serie-type-template').html(), {});
       this.$el.html(template);
     },
@@ -202,7 +207,79 @@ $(function(){
    * @property shots. A collection of shots, that can have diffrent values. Values should
    * translateable, ie. X = 10
    */
-  var Round = Backbone.Model;
+  var Round = Backbone.Model.extend({
+    url : '/Rounds'
+  });
+  var RegisterRound = Backbone.View.extend({
+    initialize : function(){
+      this.options.shots = [];
+    },
+    el: '.page',
+    render: function(options){
+
+      var template = _.template($('#register-round-list').html());
+      this.$el.html(template);
+    },
+    events: {
+      'click .add-score': 'appendShot',
+      'click .reset-score': 'resetShots',
+      'click .submit-score': 'submitShots'
+    },
+    appendShot : function(event){
+      var point = $(event.currentTarget).attr('data-val');
+      this.options.shots.push(point);
+      this.updateDisplayedScore();
+      event.preventDefault();
+    },
+    resetShots : function (event){
+      this.options.shots = [];
+      this.updateDisplayedScore();
+      event.preventDefault();
+    },
+    updateDisplayedScore: function (){
+      console.log(this.options.shots);
+      // Calculate the total score and bulls
+      var sum = 0;
+      var bulls = 0;
+      $.each(this.options.shots,function(){
+        sum+=parseInt(this == 'x' ? 10 : this) || 0;
+        this == 'x' ? bulls++:null;
+      });
+      $('.totalscore').html(sum);
+      $('.bulls').html(bulls);
+      $('.numberofshots').html(this.options.shots.length);
+    },
+    submitShots: function(event){
+      event.preventDefault();
+      console.log(this.options);
+      var round = new Round();
+      round.save(this.options, {
+        success: function(round){
+          router.navigate('',{trigger:true})
+        }
+      });
+    }
+  });
+  var RegisterRound = new RegisterRound();
+
+  var ResultsOverview = Backbone.View.extend({
+    el: '.page',
+    render: function(){
+      var that = this;
+      var serie = new Serie();
+      serie.fetch({
+        success: function() {
+          console.log(serie.models);
+          var template = _.template($('#show-results-overview').html(),{series: serie.models});
+          that.$el.html(template);
+        }
+      });
+
+    }
+
+  });
+
+  var ResultsOverview = new ResultsOverview();
 
 
 
@@ -253,7 +330,8 @@ $(function(){
        'new_player' : 'editPlayer',
        'new_serie_type' : 'editRoundType',
        'scoring/:id/:type_id' : 'Scoring',
-       'start_new_serie/:id' : 'newSerie'
+       'start_new_serie/:id' : 'newSerie',
+       'results' : 'ResultsOverview',
      }
   });
 
@@ -277,10 +355,16 @@ $(function(){
     ChooseRoundType.render({id: id});
   });
   router.on('route:Scoring',function(id,type){
-    console.log(id + ' - ' + type);
+    RegisterRound.options.serieid = id;
+    RegisterRound.options.roundtype = type;
+    RegisterRound.render();
+
   });
   router.on('route:newSerie',function(id,type){
     newSerie.render({id:id});
+  });
+  router.on('route:ResultsOverview',function(){
+    ResultsOverview.render();
   });
 
   // Inorder for routers to work, we need history.
