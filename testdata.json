@@ -1,0 +1,114 @@
+{[{
+  "name":"TRoels",
+  "shoots":
+    [{
+      //"gun":"CZ",
+      "date":"202020",
+      "type":"TJ pist.",
+      //"ammo" :"MacTech 9B",
+      "serie" :[{
+        "type":"Tempo",
+        "shoots":[
+          "x","x",10,9,9,8,7,6,6,5,0,0
+        ]
+      },
+        {
+          "type":"Duel",
+          "shoots":[
+            "x","x",10,9,9,8,7,6,6,5,0,0
+          ]
+        }]
+    },
+      {
+        "gun":"S&W Mod. 41",
+        "date":"202020",
+        "type":"15m",
+        "ammo": "CCI Standard .22",
+        "0":{
+          "type":"præsision",
+          "shoots":[
+            "x","x",10,9,9,8,7,6,6,5,0,0
+          ]
+        },
+        "1":{
+          "type":"præsision",
+          "shoots":[
+            "x","x",10,9,9,8,7,6,6,5,0,0
+          ]
+        },
+        "2":{
+          "type":"præsision",
+          "shoots":[
+            "x","x",10,9,9,8,7,6,6,5,0,0
+          ]
+        }
+      }]
+
+},
+  {
+    "name":"Peter",
+    "shoots":{
+      "0": {
+        "gun":"CZ",
+        "date":"202020",
+        "type":"TJ pist.",
+        "0":{
+          "type":"Tempo",
+          "shoots":[
+            "x","x",10,9,9,8,7,6,6,5,0,0
+          ]
+        },
+        "1":{
+          "type":"Duel",
+          "shoots":[
+            "x","x",10,9,9,8,7,6,6,5,0,0
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name":"Carsten",
+    "shoots":{
+      "0": {
+        "gun":"CZ",
+        "date":"202020",
+        "type":"TJ pist.",
+        "0":{
+          "type":"Tempo",
+          "shoots":[
+            "x","x",10,9,9,8,7,6,6,5,0,0
+          ]
+        },
+        "1":{
+          "type":"Duel",
+          "shoots":[
+            "x","x",10,9,9,8,7,6,6,5,0,0
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name":"Jakob",
+    "shoots":{
+      "0": {
+        "gun":"CZ",
+        "date":"202020",
+        "type":"TJ pist.",
+        "0":{
+          "type":"Tempo",
+          "shoots":[
+            "x","x",10,9,9,8,7,6,6,5,0,0
+          ]
+        },
+        "1":{
+          "type":"Duel",
+          "shoots":[
+            "x","x",10,9,9,8,7,6,6,5,0,0
+          ]
+        }
+      }
+    }
+  }
+]}
