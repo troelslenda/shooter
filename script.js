@@ -42,14 +42,12 @@ $(function(){
               },
               success: function(series){
 
-                //console.log(series);
-                //return;
-
-
                   _.find(series.attributes,function(serie){
-                    //console.log(serie);
                     if(playerid == serie.player_id){
+                      // Get date and add two hours?!
                       var date = new Date(serie.date);
+                      date.setMilliseconds(date.getMilliseconds()+7200000);
+                      //console.log();
                       var prettydate = prettyDate(date.toISOString());
                       player.set({
                         last_serie_date: prettydate ,
@@ -98,7 +96,7 @@ $(function(){
       var player = new Player();
       player.save(details, {
         success: function(player){
-          //router.navigate('new_score/' + player.attributes._id.$oid,{trigger:true})
+          router.navigate('new',{trigger:true})
         }
       });
       event.preventDefault();
@@ -112,6 +110,10 @@ $(function(){
    */
   var Serie = Backbone.Model.extend({
     urlRoot : '/Series'
+  });
+
+  var Series = Backbone.Collection.extend({
+    url:'/Series'
   });
 
   var newSerie = Backbone.View.extend({
@@ -221,7 +223,7 @@ $(function(){
       this.$el.html(template);
     },
     events: {
-      'click .add-score': 'appendShot',
+      'touchend .add-score': 'appendShot',
       'click .reset-score': 'resetShots',
       'click .submit-score': 'submitShots'
     },
@@ -266,14 +268,32 @@ $(function(){
     el: '.page',
     render: function(){
       var that = this;
-      var serie = new Serie();
+      var serie = new Series();
+      var player = new Players();
       serie.fetch({
         success: function() {
-          console.log(serie.models);
-          var template = _.template($('#show-results-overview').html(),{series: serie.models});
-          that.$el.html(template);
-        }
-      });
+          player.fetch({
+            success: function(){
+              // series and players loaded.
+
+              _.find(serie.models,function(serie){
+                //var serie = serie;
+                _.find(player.models,function(player){
+                  //console.log(player.get('_id').$oid);
+                  if (player.get('_id').$oid == serie.get('player_id')) {
+                    serie.set({
+                      'playername' : player.get('firstname'),
+                      playerno : player.get('number')
+                    });
+                  }
+                });
+              });
+              var template = _.template($('#show-results-overview').html(),{series: serie.models});
+              that.$el.html(template);
+            }
+          });
+
+        }});
 
     }
 
