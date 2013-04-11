@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+  <link href="style.css" type="text/css" rel="stylesheet">
   <link href="libraries/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
   <link href="libraries/bootstrap/css/bootstrap-responsive.min.css" type="text/css" rel="stylesheet">
 
@@ -59,9 +59,17 @@
 <!-- Templates -->
 
 <script type="text/template" id="startscreen-template">
-  <a href="#/new">Register skud</a></br>
-  <a href="#/history">Se historik</a></br>
-  <a href="#/settings">Indstillinger</a></br>
+  <h1>ShooterApp v3</h1>
+  <hr>
+  <p class="lead">Registrering af serier mm for din forening.</p>
+  <p class="alert">For at komme igang, skal der oprettes en ny database til jeres forening og appen skal <a href="#/settings">indstilles</a></p>
+  <img src="target.png" style="width:250px;float:right;margin-left:20px" class="img-polaroid">
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur iaculis consectetur tincidunt. Maecenas at augue arcu. Morbi eleifend arcu non felis ornare ac mattis eros vulputate. Nullam varius pellentesque scelerisque. Ut at magna tortor, nec congue erat. Praesent laoreet erat et turpis euismod quis sagittis sapien viverra. Praesent ante justo, luctus eget pretium a, auctor sed est. Sed adipiscing tempus sapien rutrum ullamcorper. Maecenas eget ultrices nisl.</p>
+
+  <p>Vivamus sagittis massa eget magna feugiat et fringilla lectus sodales. Vivamus bibendum nibh et .</p>
+
+
+
 </script>
 
 <script type="text/template" id="edit-user-template">
@@ -94,7 +102,7 @@
 
 
 <script type="text/template" id="show-player-list">
-  <h1>Choose Shooter:</h1>
+  <h1>Skytter</h1>
   <hr>
   <table class="table table-striped">
     <% _.each(players, function(player){ %>
@@ -107,10 +115,10 @@
         <td>
           <div class="text-right" >
           <%if(player.get('last_serie_date')){%>
-            <a class="btn btn-mini btn-success" href="#/new_score/<%=player.get('last_serie_id')%>">Append</a>
+            <a class="btn btn-mini btn-success" href="#/new_score/<%=player.get('last_serie_id')%>"><i class="icon-plus icon-white"></i></a>
             <%}%>
-            <a  class="btn btn-mini" href="#/start_new_serie/<%=player.get('_id').$oid %>">New</a>
-            <a  class="btn btn-mini btn-warning" href="#/edit/<%=player.get('_id').$oid%>">Edit</a>
+            <a class="btn btn-mini" href="#/start_new_serie/<%=player.get('_id').$oid %>"><i class="icon-asterisk"></i></a>
+            <a class="btn btn-mini btn-warning hidden-phone" href="#/edit/<%=player.get('_id').$oid%>"><i class="icon-edit icon-white"></i></a>
           </div>
         </td>
 
@@ -124,12 +132,15 @@
 
 
 <script type="text/template" id="create-serie-list">
-  <h3>Create new serie:</h3>
+  <h1>Create new serie:</h1>
+  <hr>
   <form class="new-serie-form">
+    <label>Evt. Beskrivelse</label>
     <textarea name="beskrivelse"></textarea>
     <input type="hidden" name="date" value="<%=date%>">
     <input type="hidden" name="player_id" value="<%=player%>">
-    <button type="submit">Create serie</button>
+    <hr>
+    <button type="submit" class="btn">Create serie</button>
   </form>
 
 </script>
@@ -184,7 +195,10 @@
     <% _.each(series, function(serie){ %>
     <tr>
       <td>
-        <%=serie.get('beskrivelse')%>
+        <%=serie.get('playerno')%>
+      </td>
+      <td>
+        <%=serie.get('playername')%>
       </td>
       <td>
 
