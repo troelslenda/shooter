@@ -1,10 +1,10 @@
 $(function(){
 
   $('.navbar a').bind('touchend', function(ev){
-
+    window.location = $(this).attr('href');
     console.log(ev);
   }).click(function(ev){
-      window.location = $(this).attr('href');
+
       ev.preventDefault();
     });
 
