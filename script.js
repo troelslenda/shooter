@@ -1,5 +1,16 @@
 $(function(){
 
+  $('.navbar a').bind('touchend', function(ev){
+
+    console.log(ev);
+  }).click(function(ev){
+      window.location = $(this).attr('href');
+      ev.preventDefault();
+    });
+
+
+
+
   /**
    * Model definitions
    * -----------------
