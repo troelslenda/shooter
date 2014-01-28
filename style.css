@@ -1,3 +1,110 @@
-.ignore-true {
-  color: red;
+	body{
+		background:#2f4f7b;
+		color: #f1f1f1;
+		font-family: gill sans, sans-serif;
+		padding:0;
+		margin:0;
+	}
+
+	ul, ol{
+		margin:0;
+		padding:0;
+	}
+	.blocks{
+		font-size:0;
+		
+	}
+	.blocks > *{
+		font-size:15px;
+		display: inline-block;
+		-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+		-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+		box-sizing: border-box;         /* Opera/IE 8+ */
+	}
+	.oneoffour li{
+		width:25%;
+	}
+	.message, .shooters li, .panel li, .history li, .controls li, .type li{
+		font-size:40px;
+		padding:5px;
+		/*border:1px solid red;*/
+		text-align:center;	
+	}
+	.history{
+		/*height:250px;*/
+		overflow: scroll;
+		white-space: nowrap;
+		-webkit-overflow-scrolling: touch;
+	}
+	.history li{
+		position: relative;
+		margin:4px;
+		text-align:center;
+		
+	}
+	.panel{
+		position: absolute;
+		top:150px;
+		width:100%;
+	}
+	.shotno{
+		position: absolute;
+		font-size:10px;
+		top:2px;
+		left:2px;
+	}
+	.exclude{
+		color:red;
+	}
+	.controls{
+		width:100%;
+		position:absolute;
+		top: 300px;
+	}
+	.controls .score{
+		width:100%;
+	}
+	.controls .clear,
+	.controls .send,
+	.type li{
+		width: 50%;
+	}
+.shooters, .type {
+	display: none;
 }
+
+.menu {
+    position: fixed;
+    bottom:0;
+    width:100%;
+    font-size: 0;
+
+}
+
+.menu a{
+
+    width:33.333%;
+    display: inline-block;
+    background: darkblue;
+    text-decoration: none;
+    color:#fff;
+    font-size: 20px;
+    padding: 10px 0;
+    text-align: center;
+}
+
+    .shooters{
+        text-align: center;
+    }
+    .shooters select{
+        font-size:20px;
+        margin-bottom: 40px;
+    }
+
+    .settings {
+        text-align: center;
+
+    }
+    .settings input {
+        font-size:20px;
+    }

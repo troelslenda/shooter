@@ -1,16 +1,67 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Shooter</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="viewport"
-      content="width = device-width, initial-scale = 1, user-scalable = no">
-    <script src="angular-1.0.1.min.js"></script>
-    <script src="angular-resource-1.0.1.min.js"></script>
-    <script src="shooter.ng.js"></script>
-    <link href="style.css" rel="stylesheet">
-  </head>
-  <body ng-app='shooter'>
-    <div ng-view>
+<head>
+	<title>Shooter</title>
+  <meta charset="utf-8">
+	<meta name="apple-mobile-web-app-capable" content="yes" /> 
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="viewport" content = "width = device-width, initial-scale = 1, user-scalable = no" /> 
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="shooter.js"></script>
+	<style>
+	 @import url(style.css);	
+	</style>
+</head>
+<body>
+
+<div class="message"></div>
+
+<div class="page">
+  <div class="collect">
+
+    <ol class="history blocks">
+
+    </ol>
+    <ul class="panel blocks oneoffour">
+    <li>0</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+    <li>9</li>
+    <li>10</li>
+    <li>x</li>
+    </ul>
+
+    <ul class="controls blocks">
+    </ul>
+
+
+    <div class="shooters">
+
+    </div>
+
+    <ul class="type blocks">
+      <li>Tempo</li>
+      <li>Duel</li>
+    </ul>
+
+
+  </div>
+  <div class="result-shower">history</div>
+  <div class="settings"><input type="text" class="shooter_name" name="name"><input type="submit" class="add_shooter" value="Tilføj skytte">
+    <h1>Shooter App v2</h1>
+    <p>Lavet af Troels Lenda for Akademisk Skytteforening</p>
+    <p>Har du brug for en kopi af appen, så skriv til <a href="mailto:troelslenda@gmail.com">troelslenda@gmail.com</a></p>
+  </div>
+
+</div>
+
+<nav class="menu">
+  <a href="#collect">Indtast</a>
+  <a href="#results">Resultater</a>
+  <a href="#settings">Indstillinger</a>
+</nav>
+
+
+</body>
+</html>
