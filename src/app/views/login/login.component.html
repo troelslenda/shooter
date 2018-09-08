@@ -1,3 +1,12 @@
-<p>
-  login works!
-</p>
+
+
+
+    <button (click)="auth.googleLogin()">
+        <i class="fa fa-google"></i> Connect Google
+      </button>
+
+<div *ngIf="auth.user | async">
+    <button (click)="auth.signOut()">
+        <i class="fa fa-google"></i>Logout
+      </button>
+</div>

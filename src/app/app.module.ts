@@ -1,6 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { environment } from '../environments/environment';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
+import { AuthService } from './services/auth.service'
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +17,7 @@ import { SettingsComponent } from './views/settings/settings.component';
 import { StartComponent } from './views/start/start.component';
 import { ScoreComponent } from './views/score/score.component';
 import { ResultsComponent } from './views/results/results.component';
+
 
 @NgModule({
   declarations: [
@@ -25,9 +32,13 @@ import { ResultsComponent } from './views/results/results.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule
+
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

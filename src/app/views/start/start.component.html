@@ -1,3 +1,4 @@
 <p>
-  start works!
+  Welcome to shooter!
 </p>
+<p *ngIf="!(auth.user | async)">Start scoring by <a routerLink="login">logging in</a></p>
