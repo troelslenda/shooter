@@ -5,6 +5,8 @@
 
 environment.*
 
+functions/lib
+
 # compiled output
 /dist
 /tmp
