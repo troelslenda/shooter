@@ -47,7 +47,7 @@ const addSession = async data => {
     // Nest the score as a round document under sessions.
     // This will make further migration easier when grouping
     // multiple rounds in a session.
-    db.collection(`sessions/${savedSessionDoc.id}/round`).add({
+    await db.collection(`sessions/${savedSessionDoc.id}/round`).add({
       type: data.type,
       time: data.time,
       shots: data.shots
@@ -62,11 +62,27 @@ const addSession = async data => {
   }
 }
 
-// Load the data to migrate, loop through, validate and process it.
-const migrateData = require('./migratedata.json')
-for (i in migrateData) {
-  let row = migrateData[i]
-  if (isValidSession(row)) {
-    addSession(row)
+const asyncForEach = async (array, callback) => {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array)
   }
 }
+
+const waitFor = (ms) => new Promise(r => setTimeout(r, ms))
+
+// Load the data to migrate, loop through, validate and process it.
+const migrateData = require('./migratedata.json')
+// Throttle down the migration since Spark Firebase plan has a limit
+// of cloud function executions pr second.
+const startMigrate = async () => {
+  await asyncForEach(migrateData, async (row) => {
+    if (isValidSession(row)) {
+      console.log(row.shots.length)
+     await addSession(row)
+    }
+    await waitFor(100)
+  })
+  console.log('Done')
+}
+startMigrate()
+

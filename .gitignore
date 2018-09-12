@@ -6,6 +6,7 @@
 environment.*
 
 functions/lib
+.firebase
 
 # compiled output
 /dist
