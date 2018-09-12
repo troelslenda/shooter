@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SessionService } from '../../services/session.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-results',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResultsComponent implements OnInit {
 
-  constructor() { }
+  sessions: Observable<any>
+
+  constructor(sessionService: SessionService) {
+    this.sessions = sessionService.sessions
+  }
 
   ngOnInit() {
   }
