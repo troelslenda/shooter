@@ -4,8 +4,7 @@
   "description": "",
   "main": "migrate.js",
   "dependencies": {
-    "firebase-admin": "^6.0.0",
-    "firebase-tools": "^4.2.1"
+    "firebase-admin": "^6.0.0"
   },
   "devDependencies": {},
   "scripts": {
