@@ -39,7 +39,7 @@ const addSession = async data => {
     // Save session and get the refrence to the document.
     const savedSessionRef = await db.collection("sessions").add({
       name: data.name,
-      date: data.time
+      date: new Date(data.time * 1000)
     })
     // The refference dosen't directly contain the identifier so
     // we need to load the document first.
@@ -49,7 +49,7 @@ const addSession = async data => {
     // multiple rounds in a session.
     await db.collection(`sessions/${savedSessionDoc.id}/round`).add({
       type: data.type,
-      time: data.time,
+      time: new Date(data.time * 1000),
       shots: data.shots
     })
   } catch (e) {

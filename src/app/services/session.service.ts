@@ -16,7 +16,7 @@ export class SessionService {
   private sesssionRef: AngularFirestoreCollection<any>;
   
   constructor(public af: AngularFirestore) {
-    this.sesssionRef = af.collection('sessions')
+    this.sesssionRef = af.collection('sessions', ref => ref.orderBy('sessionDate', 'desc').limit(100))
     this.sessions = this.sesssionRef.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data();

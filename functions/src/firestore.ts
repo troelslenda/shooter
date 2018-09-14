@@ -19,8 +19,8 @@ export const roundCreated = functions.firestore
     const data = snap.data();
     const score = data.shots.reduce(sumShots, 0)
 
-    const updateData = {scores : []}
-    updateData.scores.push({ type: data.type, score: score })
+    const updateData = {scores : {}}
+    updateData.scores[snap.id] = { type: data.type, score: score }
 
     return snap.ref.parent.parent.set(updateData, {merge: true})
   });
