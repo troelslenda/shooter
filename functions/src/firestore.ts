@@ -8,7 +8,7 @@ import { isEqual, reduce } from 'lodash'
  * @param total 
  * @param shot 
  */
-const sumShots = (total: number, shot: any) => total + (shot.toLowerCase() == 'x' ? 10 : parseInt(shot));
+const sumShots = (total: number, shot: any) => total + (typeof shot == 'string' && shot.toLowerCase() == 'x' ? 10 : parseInt(shot));
 const sumScore = (results, value, key) => {
     return results + value.score
 }
