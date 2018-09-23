@@ -1,0 +1,8 @@
+.bottom-navigation a {
+    &, &:hover {
+        color: whitesmoke;
+    }
+    &.active {
+        background-color:black;
+    }
+}

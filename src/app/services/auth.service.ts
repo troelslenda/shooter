@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   user: Observable<firebase.User>;
-  private userDetails: firebase.User = null;
+  public userDetails: firebase.User = null;
 
   get isAuthenticated():boolean {
     return this.userDetails !== null;
