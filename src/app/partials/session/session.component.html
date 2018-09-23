@@ -1,0 +1,6 @@
+{{session.date.seconds * 1000 | date:"dd-MM-yyyy"}} - {{session.name}} Total score: {{session.totalScore}} 
+<div>
+  <small *ngFor="let round of rounds">
+    {{ round.type}}: {{ round.score}} points
+  </small>
+</div>

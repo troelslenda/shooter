@@ -1,3 +1,82 @@
-<p>
-  score works!
-</p>
+<div class="history-container">
+  <div class="row.no-gutters" *ngIf="shots.length">
+    <div class="col-12">
+      <h5>Shots registered</h5>
+      <ul class="history">
+        <li *ngFor="let shot of allShots; let i = index" (click)="toggleExclusion(i)" [class.isExcluded]="isExcluded(i)">
+          <small>{{i+1}}</small>{{shot}}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container keypad">
+  <div class="row">
+    <div class="col-12">
+      <div class="container">
+        <div class="row">
+          <div class="col-3">
+            <button (click)="registerShot(0)" class="btn">0</button>
+          </div>
+          <div class="col-3">
+            <button (click)="registerShot(5)" class="btn">5</button>
+          </div>
+          <div class="col-3">
+            <button (click)="registerShot(6)" class="btn">6</button>
+          </div>
+          <div class="col-3">
+            <button (click)="registerShot(7)" class="btn">7</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="container">
+          <div class="row">
+            <div class="col-3">
+              <button (click)="registerShot(8)" class="btn">8</button>
+            </div>
+            <div class="col-3">
+              <button (click)="registerShot(9)" class="btn">9</button>
+            </div>
+            <div class="col-3">
+              <button (click)="registerShot(10)" class="btn">10</button>
+            </div>
+            <div class="col-3">
+              <button (click)="registerShot('X')" class="btn">X</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="validShots.length">
+  <p class="text-center">Score: {{sum}}
+    <span *ngIf="bullsEyes">/{{bullsEyes}}</span> of {{validShots.length}} shots</p>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <p>Save round as</p>
+        <select name="" class="custom-select" [(ngModel)]="type">
+          <option value="Tempo">Tempo</option>
+          <option value="Duel">Duel</option>
+        </select>
+        <p>to:</p>
+      </div>
+    </div>
+    <div class="row" *ngIf="type">
+      <div class="col-8">
+        <button class="btn" (click)="saveToPrevious()">previous</button> or
+        <button class="btn" (click)="saveToNew()">new</button> session
+      </div>
+      <div class="col-4 text-right">
+        <button class="btn btn-danger" (click)="resetScore()">Reset</button>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,3 +1,6 @@
-<div *ngFor="let session of sessions | async">
-    {{session.sessionDate.seconds * 1000 | date:"dd-MM-yyyy"}} - {{session.name}} Total score: {{session.totalScore}} {{session.scores | json}} 
+<app-spinner *ngIf="!(sessions | async)"></app-spinner>
+<div class="list-group">
+<div class="list-group-item" *ngFor="let session of sessions | async">
+    <app-session [session]="session"></app-session> 
+</div>
 </div>

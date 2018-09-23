@@ -1,0 +1,36 @@
+.history-container {
+    height: 100px;
+    .history {
+        white-space: nowrap;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        padding: 0;
+    }
+    .history li {
+        position: relative;
+        display: inline-block;
+        padding: 15px;
+        small {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+        }
+    }
+}
+
+.keypad {
+    .container, & {
+        padding:0 10px 10px 0;
+        .col-3 {
+            padding-left:5px;
+            padding-right:5px;
+        }
+    }
+    button {
+        width : 100%;
+        }
+}
+
+.isExcluded {
+    color: red
+}

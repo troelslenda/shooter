@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent, canActivate: [IsUserGuard] },
   { path: '', component: StartComponent },
   { path: 'results', component: ResultsComponent },
-  { path: 'score', component: ScoreComponent }
+  { path: 'score', component: ScoreComponent, canActivate: [IsUserGuard] }
 ]
 
 @NgModule({

@@ -16,6 +16,9 @@ import { SettingsComponent } from './views/settings/settings.component';
 import { StartComponent } from './views/start/start.component';
 import { ScoreComponent } from './views/score/score.component';
 import { ResultsComponent } from './views/results/results.component';
+import { SessionComponent } from './partials/session/session.component';
+import { SpinnerComponent } from './partials/spinner/spinner.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -26,11 +29,14 @@ import { ResultsComponent } from './views/results/results.component';
     SettingsComponent,
     StartComponent,
     ScoreComponent,
-    ResultsComponent
+    ResultsComponent,
+    SessionComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     NgbModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
