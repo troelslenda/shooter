@@ -13,6 +13,7 @@ export class ScoreComponent {
   shots: any[] = [];
   exclusions : boolean[] = [];
   type: string;
+  historyPos: number;
 
   constructor(public sessionService: SessionService, public auth: AuthService, public router:Router) { }
 
@@ -42,22 +43,35 @@ export class ScoreComponent {
     }, this.auth.userDetails)
     this.router.navigate(['/results'])
   }
-  private registerShot(shot: any): void {
+
+  scrollToLast() {
+
+      const nodes = document.querySelectorAll('.history li');
+      const last = nodes[nodes.length - 1];
+      if (last) {
+        last.scrollIntoView();
+      }
+
+  }
+
+  registerShot(shot: any): void {
     this.shots.push(shot)
-    console.log(this.type)
+    this.scrollToLast()
+
+
   }
   get allShots(): any[] {
     return this.shots
   }
-  
+
   get validShots(): any[] {
-    return this.shots.filter((shot, index) => 
+    return this.shots.filter((shot, index) =>
       !this.isExcluded(index))
   }
-  public
+
   get sum(): number {
     return this.validShots
-      .reduce((result, shot) => 
+      .reduce((result, shot) =>
         result + (typeof shot === 'string' && shot.toLowerCase()==='x' ? 10 : shot), 0)
    }
    get bullsEyes(): number {

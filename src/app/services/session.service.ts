@@ -7,7 +7,6 @@ import {
   AngularFirestoreCollection, AngularFirestoreDocument
 } from "angularfire2/firestore";
 import * as firebase from "firebase/app";
-import { QueryDocumentSnapshot } from '@google-cloud/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +17,7 @@ export class SessionService {
   latestSession : Observable<any[]>
 
   private sesssionRef: AngularFirestoreCollection<any>;
-  
+
   constructor(public af: AngularFirestore) {
     this.sesssionRef = af.collection('sessions', ref => ref.orderBy('date', 'desc').limit(100))
     this.sessions = this.sesssionRef.snapshotChanges().pipe(
@@ -29,10 +28,10 @@ export class SessionService {
       }))
     );
   }
-  
+
   public async saveRoundToNewSession(round, user: firebase.User) {
     const sessionDocument = await this.newSession(user)
-    return sessionDocument.collection('round').add(round)  
+    return sessionDocument.collection('round').add(round)
   }
 
   public async saveRoundToPreviousSession(round, user) {
@@ -44,10 +43,10 @@ export class SessionService {
 
   public  loadLatestSession(user: firebase.User) {
     const ref = this.af
-      .collection('sessions', ref=> 
+      .collection('sessions', ref=>
         ref.where('uid', '==', user.uid).orderBy('date', 'desc').limit(1))
     return ref.get()
-    
+
   }
 
   private async newSession(user: firebase.User) {
